@@ -3,7 +3,7 @@ set -e
 set -x
 
 if [ $(grep -ci $CUPSADMIN /etc/shadow) -eq 0 ]; then
-    useradd -r -G lpadmin -M $CUPSADMIN 
+    useradd -r -G lpadmin -M $CUPSADMIN
 fi
 echo $CUPSADMIN:$CUPSPASSWORD | chpasswd
 
@@ -17,4 +17,5 @@ fi
 cp /config/printers.conf /etc/cups/printers.conf
 
 /root/printer-update.sh &
+/root/run_avahi.sh &
 exec /usr/sbin/cupsd -f
